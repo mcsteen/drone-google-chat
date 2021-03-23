@@ -27,7 +27,7 @@ generate_post_data()
     {
       "header": {
         "title": "#$DRONE_BUILD_NUMBER - $DRONE_REPO_NAME",
-        "subtitle": "last commit: $DRONE_REPO_NAME",
+        "subtitle": "last commit: $DRONE_COMMIT_MESSAGE",
         "imageUrl": "$PLUGIN_IMAGE",
       },
       "sections": [
@@ -59,10 +59,20 @@ generate_post_data()
                   "buttons": [
                     {
                       "textButton": {
-                        "text": "OPEN ORDER",
+                        "text": "Github",
                         "onClick": {
                           "openLink": {
-                            "url": "https://example.com/orders/..."
+                            "url": "$DRONE_COMMIT_LINK"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "textButton": {
+                        "text": "Drone",
+                        "onClick": {
+                          "openLink": {
+                            "url": "$DRONE_BUILD_LINK"
                           }
                         }
                       }
