@@ -19,6 +19,18 @@ if [ -z $PLUGIN_IMAGE ]; then
   PLUGIN_IMAGE="https://orders.mcsteen.com/images/chat-logo.png"
 fi
 
+if [ -z $DRONE_COMMIT_MESSAGE ]; then
+  DRONE_COMMIT_MESSAGE="unknown"
+fi
+
+if [ -z $DRONE_COMMIT_AUTHOR ]; then
+  PLUGIN_IMAGE="unknown"
+fi
+
+if [ -z $DRONE_COMMIT_BRANCH ]; then
+  PLUGIN_IMAGE="unknown"
+fi
+
 generate_post_data()
 {
   cat <<EOF
@@ -42,7 +54,7 @@ generate_post_data()
             {
               "keyValue": {
                 "topLabel": "Author",
-                "content": "$DRONE_COMMIT_AUTHOR_NAME"
+                "content": "$DRONE_COMMIT_AUTHOR"
               }
             },
             {
