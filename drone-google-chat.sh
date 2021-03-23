@@ -15,6 +15,10 @@ if [ -z ${PLUGIN_TOKEN} ]; then
   exit 1
 fi
 
+if [ -z $PLUGIN_IMAGE ]; then
+  PLUGIN_IMAGE="https://orders.mcsteen.com/images/chat-logo.png"
+fi
+
 generate_post_data()
 {
   cat <<EOF
@@ -22,35 +26,31 @@ generate_post_data()
   "cards": [
     {
       "header": {
-        "title": "Pizza Bot Customer Support",
-        "subtitle": "pizzabot@example.com",
-        "imageUrl": "https://goo.gl/aeDtrS"
+        "title": "#$DRONE_BUILD_NUMBER - $DRONE_REPO_NAME",
+        "subtitle": "last commit: $DRONE_REPO_NAME",
+        "imageUrl": "$PLUGIN_IMAGE",
       },
       "sections": [
         {
           "widgets": [
-              {
-                "keyValue": {
-                  "topLabel": "Order No.",
-                  "content": "12345"
-                  }
-              },
-              {
-                "keyValue": {
-                  "topLabel": "Status",
-                  "content": "In Delivery"
-                }
-              }
-          ]
-        },
-        {
-          "header": "Location",
-          "widgets": [
             {
-              "image": {
-                "imageUrl": "https://maps.googleapis.com/..."
+              "keyValue": {
+                "topLabel": "Status",
+                "content": "<font color=\"#ff0000\">$DRONE_BUILD_STATUS</font>"
               }
-            }
+            },
+            {
+              "keyValue": {
+                "topLabel": "Author",
+                "content": "$DRONE_COMMIT_AUTHOR_NAME"
+              }
+            },
+            {
+              "keyValue": {
+                "topLabel": "Branch",
+                "content": "$DRONE_COMMIT_BRANCH"
+              }
+            },
           ]
         },
         {
