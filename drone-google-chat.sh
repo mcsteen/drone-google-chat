@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 if [ -z $PLUGIN_URL ]; then 
   echo "Missing URL under settings config"
