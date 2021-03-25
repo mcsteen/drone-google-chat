@@ -1,0 +1,32 @@
+---
+kind: pipeline
+name: Release
+
+trigger:
+  event:
+  - tag
+
+steps:
+- name: docker
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: DOCKER_USERNAME
+    password:
+      from_secret: DOCKER_PASSWORD
+    repo: mcsteen/drone-google-chat
+    dockerfile: dockerfile
+    tags:
+    - latest
+    - ${DRONE_TAG}
+
+- name: alert
+  pull: never
+  image: mcsteen/drone-google-chat:latest
+  settings:
+    URL:
+      from_secret: GOOGLE_CHAT_WEBHOOK
+    KEY: 
+      from_secret: GOOGLE_CHAT_KEY
+    TOKEN:
+      from_secret: GOOGLE_CHAT_TOKEN
