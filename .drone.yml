@@ -21,7 +21,6 @@ steps:
     - ${DRONE_TAG}
 
 - name: alert
-  pull: never
   image: mcsteen/drone-google-chat:latest
   settings:
     URL:
