@@ -1,6 +1,6 @@
 # Drone Google Chat
 
-A simple script that posts a card into a google chat using a webhook. More features to be added.
+A simple script that posts a card into a google chat using a webhook.
 
 ## Usage
 
@@ -22,16 +22,39 @@ docker run --rm \
   mcsteen/drone-google-chat
 ```
 
+### Drone Step
+
 ```yaml
 steps:
 ...
 - name: Google Chat Alert
   image: mcsteen/drone-google-chat:latest
   settings:
-  URL: "https://chat.googleapis.com/v1/spaces/<spaces_id>/messages"
-  KEY: <spaces_key>
-  TOKEN: <spaces_token>
-  
+    URL: "https://chat.googleapis.com/v1/spaces/<spaces_id>/messages"
+    KEY: <spaces_key>
+    TOKEN: <spaces_token>
+
+  # optional triggers
+  when:
+    status:
+      - failure
+```
+
+### Drone Step *using secrets*
+
+```yaml
+steps:
+...
+- name: Google Chat Alert
+  image: mcsteen/drone-google-chat:latest
+  settings:
+    URL:
+      from_secret: GOOGLE_CHAT_WEBHOOK
+    KEY: 
+      from_secret: GOOGLE_CHAT_KEY
+    TOKEN:
+      from_secret: GOOGLE_CHAT_TOKEN
+
   # optional triggers
   when:
     status:

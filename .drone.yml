@@ -13,7 +13,7 @@ steps:
     username:
       from_secret: DOCKER_USERNAME
     password:
-      from_secret: DOCKER_PASSWORD
+      from_secret: DOCKER_ACCESS_TOKEN
     repo: mcsteen/drone-google-chat
     dockerfile: dockerfile
     tags:
